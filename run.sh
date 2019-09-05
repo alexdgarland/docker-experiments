@@ -2,4 +2,6 @@
 
 container_name=web-test-$(date +%Y%m%d%H%M%s)
 
-docker run -d --rm --name $container_name -p 80:8000 mywebserver:latest
+echo "Running container as $container_name"
+
+docker run -it --rm --name "$container_name" -it -p 80:8000 mywebserver:latest
