@@ -1,2 +1,7 @@
 .python-version
 .idea
+.server_logs/*.log
+build
+dist
+*.egg-info
+*.pyc
