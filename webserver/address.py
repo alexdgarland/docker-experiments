@@ -1,3 +1,0 @@
-
-class ServerAddressConfig(object):
-    pass

@@ -2,21 +2,15 @@
 
 # TODO - this needs unit tests and proper logging
 
-import sys
 from getpass import getuser
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from os import environ
-from os.path import split, dirname
+from os.path import split, dirname, join
 
 from jinja2 import Template
 
-from .address import ServerAddressConfig
+from .config import ServerConfig
 
 RESOURCE_ROOT = dirname(__file__)
-
-# TODO load some of these from an app config file?
-SERVER_IP = "0.0.0.0"
-DEFAULT_WEBSERVER_PORT = 8000
 INDEX_TEMPLATE_FILE = f"{RESOURCE_ROOT}/pages/index.j2"
 
 
@@ -66,18 +60,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self._content_get("text/html", self.index_page.encode())
 
 
-def main(args=None):
+def main():
 
-    if args is None:
-        args = sys.argv[1:]
+    server_config = ServerConfig.create(join(RESOURCE_ROOT, "server_defaults.yaml"))
+    print(server_config)
 
-    # TODO break out this block for deciding how to config the server address
-    webserver_port = int(environ.get("WEBSERVER_PORT", DEFAULT_WEBSERVER_PORT))
-
-    server_address = (SERVER_IP, webserver_port)
-    print(f"Starting webserver on: {server_address}")
-
-    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    httpd = HTTPServer(server_config.address, SimpleHTTPRequestHandler)
     httpd.serve_forever()
 
 

@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 
+REQUIREMENTS = ["jinja2", "ruamel.yaml"]
+
 setup(
     name="WebServer",
     version="0.0.1",
@@ -10,11 +12,11 @@ setup(
     package_data={
         "webserver": [
             "images/*",
-            "pages/*"
+            "pages/*",
+            "server_defaults.yaml"
         ]
     },
-    setup_requires=[],
-    install_requires=["jinja2"],
+    install_requires=REQUIREMENTS,
     entry_points={
           'console_scripts': [
               'webserver = webserver.__main__:main'
