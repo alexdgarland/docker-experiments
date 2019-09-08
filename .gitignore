@@ -7,3 +7,5 @@ dist
 *.pyc
 .eggs
 .tox
+.coverage
+coverage.xml
