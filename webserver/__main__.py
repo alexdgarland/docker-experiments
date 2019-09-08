@@ -2,24 +2,12 @@
 
 # TODO - this needs proper logging
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer
 from os.path import join
 
 from .config import ServerConfig
-from .request_path import ParsedRequestPath
-from .response import get_resource_fetcher
 from .resource import RESOURCE_ROOT
-
-
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-
-    def do_GET(self):
-        parsed_path = ParsedRequestPath(self.path)
-        response_details = get_resource_fetcher(parsed_path).get_response()
-        self.send_response(response_details.response_code)
-        self.send_header("Content-type", response_details.content_type)
-        self.end_headers()
-        self.wfile.write(response_details.body)
+from .handler import SimpleHTTPRequestHandler
 
 
 def main():
