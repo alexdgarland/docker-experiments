@@ -7,7 +7,8 @@ from os.path import join
 
 from .config import ServerConfig
 from .request_path import ParsedRequestPath
-from .resource_fetching import get_resource_fetcher, RESOURCE_ROOT
+from .response import get_resource_fetcher
+from .resource import RESOURCE_ROOT
 
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
