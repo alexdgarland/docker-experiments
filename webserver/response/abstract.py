@@ -17,6 +17,10 @@ class AbstractResourceFetcher(ABC):
     def __init__(self, parsed_request_path):
         self._request_path = parsed_request_path
 
+    @property
+    def resource_root(self):
+        return RESOURCE_ROOT
+
     @abstractproperty
     def file_mode(self):
         pass
@@ -35,6 +39,10 @@ class AbstractResourceFetcher(ABC):
         # Default pass-through implementation
         return self._request_path.request_filename
 
+    @property
+    def resource_path(self):
+        return join(self.resource_root, self.full_resource_dir, self.resource_filename)
+
     def convert_resource_content_to_body(self, content):
         # Default pass-through implementation
         return content
@@ -45,9 +53,8 @@ class AbstractResourceFetcher(ABC):
         return HttpResponseDetails(404, "text/html", error_message.encode())
 
     def get_response(self):
-        resource_path = join(RESOURCE_ROOT, self.full_resource_dir, self.resource_filename)
         try:
-            with open(resource_path, self.file_mode) as f:
+            with open(self.resource_path, self.file_mode) as f:
                 content = f.read()
         except FileNotFoundError as fe:
             return self.not_found_response
