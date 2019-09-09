@@ -8,12 +8,13 @@ setup(
     author="Alex Garland",
     author_email="alex.d.garland@gmail.com",
     url="https://github.com/alexdgarland/docker-experiments",
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(),
     package_data={
         "webserver": [
-            "images/*",
+            "resources/images/*",
+            "resources/css/*",
             "pages/*",
-            "server_defaults.yaml"
+            "config/*"
         ]
     },
     install_requires=REQUIREMENTS,

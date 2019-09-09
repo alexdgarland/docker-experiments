@@ -3,6 +3,7 @@ from mock import Mock, patch
 
 from webserver.response.implementation.image import ImageResourceFetcher
 from webserver.response.implementation.page import PageResourceFetcher
+from webserver.response.implementation.css import CssResourceFetcher
 
 
 class ImageResourceFetcherTest(TestCase):
@@ -52,3 +53,24 @@ class PageResourceFetcherTest(TestCase):
         encode_method.assert_called_once_with()
 
         self.assertEqual(response_body, encode_method.return_value)
+
+
+class CssResourceFetcherTest(TestCase):
+
+    def setUp(self):
+        self.request_path = Mock()
+        self.fetcher = CssResourceFetcher(self.request_path)
+
+    def test_file_mode_as_expected(self):
+        self.assertEqual(self.fetcher.file_mode, "r")
+
+    def test_content_type_as_expected(self):
+        self.assertEqual(self.fetcher.content_type, "text/css")
+
+    def test_resource_conversion_works_as_expected(self):
+        dummy_content = Mock()
+
+        response_body = self.fetcher.convert_resource_content_to_body(dummy_content)
+
+        dummy_content.encode.assert_called_once_with()
+        self.assertEqual(response_body, dummy_content.encode.return_value)

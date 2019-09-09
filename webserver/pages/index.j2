@@ -1,6 +1,13 @@
+<link href="../resources/css/main.css" rel="stylesheet" type="text/css">
 {% block body %}
-    Hello, world from {{ username }}!
+    <h1>Hello World!</h1>
     <p>
-    <img src="../images/hellobear.gif" alt="A bear is waving at you">
+    <img src="../resources/images/hellobear.gif" alt="A bear is waving at you">
+    </p>
+    <p>
+    This message brought to you by user <i>{{ username }}</i>.
+    </p>
+    <p>
+    <a href="another_page.html">There is another page here somewhere as well...</a>
     </p>
 {% endblock %}

@@ -23,6 +23,14 @@ class ParsedRequestPathTest(TestCase):
         self.assertEqual(parsed.filename_root, "hellobear")
         self.assertEqual(parsed.file_ext, "gif")
 
+    def test_handles_two_level_resource_location(self):
+        parsed = ParsedRequestPath("/resources/images/hellobear.gif")
+        self.assertEqual(parsed.request_base_path, "/resources/images/hellobear.gif")
+        self.assertEqual(parsed.request_dir, "resources/images")
+        self.assertEqual(parsed.request_filename, "hellobear.gif")
+        self.assertEqual(parsed.filename_root, "hellobear")
+        self.assertEqual(parsed.file_ext, "gif")
+
     def test_redirects_index_page_as_default(self):
         """Tests simple direct of '/' to index.html"""
         parsed = ParsedRequestPath("/")
