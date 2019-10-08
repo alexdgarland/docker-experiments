@@ -1,4 +1,4 @@
-from abc import ABC, abstractproperty
+from abc import ABC, abstractmethod
 from os.path import join
 
 from ..resource import RESOURCE_ROOT
@@ -21,11 +21,13 @@ class AbstractResourceFetcher(ABC):
     def resource_root(self):
         return RESOURCE_ROOT
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def file_mode(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def content_type(self):
         pass
 
